@@ -21,5 +21,4 @@ This is a deliberately limited showcase and includes projects that are work-in-p
 SheetFreak is distributed as source, ribbon XML, test modules, and build instructions. Its original compiled add-in is excluded. Recorded native test results are historical project evidence; they were not independently rerun while preparing this showcase.
 
 ## License
-Exclusive copyright with all rights reserved.
 SheetFreak retains its original MIT license and attribution. The standalone interface studies are MIT licensed; see [examples/LICENSE](examples/LICENSE).
