@@ -1,0 +1,7 @@
+node_modules/
+.env*
+*.xlam
+*.xlsm
+*.xlsx
+*.zip
+.DS_Store

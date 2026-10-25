@@ -1,0 +1,46 @@
+SheetFreak native Excel tests - 2026-10-19 12:59:54
+PASS: comma format
+PASS: currency, red negatives, sections
+PASS: percentage
+PASS: scientific
+PASS: General to zero decimals
+PASS: date untouched
+PASS: time untouched
+PASS: elapsed time untouched
+PASS: fraction untouched
+PASS: quoted decimal literal preserved
+PASS: missing integer placeholder
+PASS: text format untouched
+PASS: conditions preserved
+PASS: mixed-selection comma format
+PASS: mixed-selection percentage
+PASS: mixed-selection date preserved
+PASS: underlying precision preserved
+PASS: header gray
+PASS: header font
+PASS: white inside vertical borders
+PASS: white inside horizontal borders
+PASS: assumption blue
+PASS: assumption yellow
+PASS: exact relative and absolute formula text
+PASS: literal equals text remains text
+PASS: single-cell exact copy
+PASS: home selects A1
+PASS: home readable zoom bounds
+PASS: fill creates no additional workbook
+PASS: starting formulas retained
+PASS: 100000 lower rows frozen
+PASS: cross-column dependencies calculate correctly
+PASS: middle-of-range result
+PASS: column-specific number formats
+PASS: lower rows black
+PASS: application state restored after success
+PASS: constant seed rejected
+PASS: protected sheet rejected
+PASS: active filter rejected
+PASS: calculation errors stop freezing
+PASS: error range remains formulas
+PASS: error creates no additional workbook
+PASS: application state restored after error
+ALL TESTS PASSED
+
