@@ -1,6 +1,6 @@
 # Varun Coding Showcase
 
-Selected source examples from Varun Verma’s work in software and practical automation.
+Examples of hobby code I've developed for personal projects. Majority of codebase is held private to keep proprietary.
 
 ## Explore
 
@@ -16,10 +16,10 @@ Open either example’s `index.html` in a browser, or serve its folder using `py
 
 ## Scope
 
-This is a fresh, deliberately limited showcase. The interface studies were built for demonstration and are not copies of private application source. All displayed datasets are synthetic. It contains no investment strategy, market dataset, personal workout history, production configuration, or unpublished research.
+This is a deliberately limited showcase and includes projects that are work-in-progress. All displayed datasets are synthetic. It contains no investment strategy, market dataset, personal workout history, production configuration, or unpublished research.
 
 SheetFreak is distributed as source, ribbon XML, test modules, and build instructions. Its original compiled add-in is excluded. Recorded native test results are historical project evidence; they were not independently rerun while preparing this showcase.
 
 ## License
-
+Exclusive copyright with all rights reserved.
 SheetFreak retains its original MIT license and attribution. The standalone interface studies are MIT licensed; see [examples/LICENSE](examples/LICENSE).
