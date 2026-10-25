@@ -1,7 +1,9 @@
-node_modules/
-.env*
+# Build artifacts and local workbooks are intentionally private.
 *.xlam
 *.xlsm
 *.xlsx
+*.xlsb
 *.zip
-.DS_Store
+__pycache__/
+*.pyc
+~$*

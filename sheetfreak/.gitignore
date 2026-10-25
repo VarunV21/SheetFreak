@@ -1,9 +1,0 @@
-# Build artifacts and local workbooks are intentionally private.
-*.xlam
-*.xlsm
-*.xlsx
-*.xlsb
-*.zip
-__pycache__/
-*.pyc
-~$*
