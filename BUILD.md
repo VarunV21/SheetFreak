@@ -2,7 +2,7 @@
 
 ## Current status
 
-The current GitHub baseline is canonical version 1; the proposed next version is `VERSION` (2.0.0). Offline checks do not establish that Excel has compiled, loaded or tested the new VBA. The existing local 0.2.1 binary must not be relabeled or packaged as 2.0.0.
+Version 2.0.0 was compiled from this source and passed 45 engine, 12 zoom and 16 workbook-view native Excel checks. Ribbon Fill and Freeze, cancel behavior, colors, Alt S, and persistent loading after restart were also checked. The installer upgrade required the checkbox step documented in INSTALL.md. These checks do not establish compatibility with every Office configuration. Offline checks do not establish that Excel has compiled, loaded or tested the new VBA. The existing local 0.2.1 binary must not be relabeled or packaged as 2.0.0.
 
 ## Build in Excel
 

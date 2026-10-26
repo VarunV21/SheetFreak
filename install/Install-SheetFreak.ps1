@@ -24,6 +24,27 @@ try {
     if ((Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash -ne $expectedHash) {
         throw 'The add-in does not match the release checksum. Download the release again.'
     }
+    $excelApp = New-Object -ComObject Excel.Application
+    $excelApp.Visible = $false
+    # Excel requires a workbook window before AddIns.Add can register an XLAM.
+    $setupWorkbook = $excelApp.Workbooks.Add()
+    $setupWorkbook.Saved = $true
+    [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($setupWorkbook)
+    foreach ($existingAddIn in $excelApp.AddIns) {
+        try {
+            if ($existingAddIn.Name -ieq 'SheetFreak.xlam') {
+                # Keep the registered filename and location for reliable upgrades.
+                $installPath = $existingAddIn.FullName
+                $registeredAddIn = $existingAddIn
+                $previouslyInstalled = $registeredAddIn.Installed
+                $registeredAddIn.Installed = $false
+            }
+        } finally {
+            if ($existingAddIn -ne $registeredAddIn) {
+                [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($existingAddIn)
+            }
+        }
+    }
     New-Item -ItemType Directory -Path (Split-Path $installPath) -Force | Out-Null
     if (Test-Path -LiteralPath $installPath) {
         $backupPath = $installPath + '.previous-' + [Guid]::NewGuid().ToString('N')
@@ -31,34 +52,29 @@ try {
     }
     Copy-Item -LiteralPath $sourcePath -Destination $installPath -Force
     $copied = $true
-    $excelApp = New-Object -ComObject Excel.Application
-    $excelApp.Visible = $false
-    foreach ($existingAddIn in $excelApp.AddIns) {
-        try {
-            if ($existingAddIn.Installed -and $existingAddIn.Name -ieq 'SheetFreak.xlam' -and $existingAddIn.FullName -ine $installPath) {
-                throw 'SheetFreak is already enabled in a different folder. Update that file manually, or uncheck the old copy in Excel before switching to this installer.'
-            }
-        } finally {
-            [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($existingAddIn)
-        }
+    if ($null -eq $registeredAddIn) {
+        $registeredAddIn = $excelApp.AddIns.Add($installPath, $false)
     }
-    $registeredAddIn = $excelApp.AddIns.Add($installPath, $false)
-    $previouslyInstalled = $registeredAddIn.Installed
     $registeredAddIn.Installed = $true
     if (!$registeredAddIn.Installed) { throw 'Excel did not keep SheetFreak enabled.' }
     $excelApp.Quit()
-    Write-Host "SheetFreak is registered at $installPath"
-    Write-Host 'Open Excel normally and confirm the SheetFreak tab appears. Then try Alt, S.'
+    Write-Host "SheetFreak has been copied to $installPath"
+    Write-Host 'IMPORTANT: In normal Excel, open File > Options > Add-ins > Excel Add-ins > Go.'
+    Write-Host 'Check Sheetfreak and click OK. If absent, Browse to the path above.'
+    Write-Host 'Fully restart Excel, confirm the tab appears, then try Alt, S.'
     Write-Host 'If your organization blocks unsigned add-ins, use its approved installation process.'
 } catch {
     $installFailure = $_
     if ($null -ne $registeredAddIn) {
-        try { $registeredAddIn.Installed = $previouslyInstalled } catch { }
+        try { $registeredAddIn.Installed = $false } catch { }
     }
-    if ($null -ne $excelApp) { try { $excelApp.Quit() } catch { } }
     if ($copied -and $null -ne $backupPath) {
         Copy-Item -LiteralPath $backupPath -Destination $installPath -Force
     }
+    if ($null -ne $registeredAddIn) {
+        try { $registeredAddIn.Installed = $previouslyInstalled } catch { }
+    }
+    if ($null -ne $excelApp) { try { $excelApp.Quit() } catch { } }
     Write-Error $installFailure -ErrorAction Continue
     Write-Host 'See INSTALL.md for the manual installation steps. No security settings were changed.'
     exit 1

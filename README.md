@@ -4,11 +4,9 @@ An Excel toolbox for people who are freaks in the sheets. Install once; use its 
 
 **[Download releases](https://github.com/VarunV21/SheetFreak/releases)** · **[Installation guide](INSTALL.md)** · [My website](https://varun-verma-portfolio.vercel.app/projects/sheetfreak/)
 
-This repository is the canonical version 1 source. The proposed 2.0.0 update is prepared on this branch; its compiled download is **not yet built, tested or published**. Until a tested release ZIP appears under Releases, this repository is source-only. Earlier local preview ZIPs are historical previews.
+This repository is the canonical source. Version **2.0.0** was compiled and tested in Windows desktop Excel, including 73 native checks, ribbon Fill and Freeze, and loading after a full restart. Download the built release asset for installation.
 
 ## Install
-
-Once a tested release is published:
 
 1. Under **Releases → Assets**, download `SheetFreak-v2.0.0.zip`. Do not choose GitHub's **Source code (zip)**.
 2. Extract the ZIP into a permanent folder.
@@ -19,7 +17,7 @@ No Python, developer tools or macro-enabled working workbook required. The relea
 
 ## Tools
 
-Press ribbon keys one after another, starting with Alt. SheetFreak uses ribbon key tips only; it does not register Ctrl+Alt shortcuts or override native keyboard bindings. The requested tab key tip is S; it still needs confirmation in Excel, which may reassign it when another tab conflicts.
+Press ribbon keys one after another, starting with Alt. SheetFreak uses ribbon key tips only; it does not register Ctrl+Alt shortcuts or override native keyboard bindings. The tab key tip S was verified in Excel. Excel may reassign it when another tab conflicts.
 
 | Tool | After Alt → S | What it does |
 | --- | --- | --- |
