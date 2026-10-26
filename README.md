@@ -1,66 +1,48 @@
 # SheetFreak
 
-An Excel VBA add-in with a custom ribbon for formatting shortcuts and special formula manipulation. Built for Windows desktop Microsoft 365.
+An Excel toolbox for people who are freaks in the sheets. Install once; use its ribbon and shortcuts in normal `.xlsx` workbooks. Windows desktop Excel / Microsoft 365.
 
-[SheetFreak on my website](https://varun-verma-portfolio.vercel.app/projects/sheetfreak/) · [My portfolio](https://varun-verma-portfolio.vercel.app/)
+**[Download releases](https://github.com/VarunV21/SheetFreak/releases)** · **[Installation guide](INSTALL.md)** · [My website](https://varun-verma-portfolio.vercel.app/projects/sheetfreak/)
 
-This repository contains the VBA source, ribbon XML, native Excel tests, and a build helper for version 0.2.1 preview. A compiled `.xlam` is not included.
+This repository is the canonical source. Version **2.0.0** was compiled and tested in Windows desktop Excel, including 73 native checks, ribbon Fill and Freeze, and loading after a full restart. Download the built release asset for installation.
 
-## Tools and ribbon shortcuts
+## Install
 
-Press each key in sequence, starting with Alt; do not hold the keys together. These sequences use the ribbon key tips defined in this repository. Excel may reassign them if another add-in conflicts.
+1. Under **Releases → Assets**, download `SheetFreak-v2.0.0.zip`. Do not choose GitHub's **Source code (zip)**.
+2. Extract the ZIP into a permanent folder.
+3. In Excel: **File → Options → Add-ins → Manage: Excel Add-ins → Go → Browse**. Select `SheetFreak.xlam`, ensure **Sheetfreak is checked**, then click **OK**.
+4. Fully close and reopen Excel. Confirm the SheetFreak tab appears in a blank workbook.
 
-| Tool | Ribbon sequence | What it does |
+No Python, developer tools or macro-enabled working workbook required. The release also includes an optional installer that copies the add-in to a stable folder and registers it. See [INSTALL.md](INSTALL.md), including updates and company-managed devices.
+
+## Tools
+
+Press ribbon keys one after another, starting with Alt. SheetFreak uses ribbon key tips only; it does not register Ctrl+Alt shortcuts or override native keyboard bindings. The tab key tip S was verified in Excel. Excel may reassign it when another tab conflicts.
+
+| Tool | After Alt → S | What it does |
 | --- | --- | --- |
-| Zero decimals | Alt → S → F → 0 | Removes supported decimal display placeholders while retaining number styles and stored precision. |
-| Assumption format | Alt → S → F → A | Applies blue text and pale yellow fill. |
-| Header format | Alt → S → F → H | Applies gray fill, bold white text, and borders. |
-| Copy exact | Alt → S → F → C | Copies formula text into a private session buffer. |
-| Paste exact | Alt → S → F → V | Pastes copied formulas without translating relative references. |
-| Fill and freeze | Alt → S → F → F | Fills and calculates the target, then freezes lower rows into values while retaining seed formulas. |
-| Auto resize | Alt → S → F → R | Returns to A1 and fits populated columns within 70–200% zoom. |
+| Zero decimals | 0 | Hide decimal places while preserving supported number styles and stored precision. |
+| Assumption | A | Blue text and pale yellow fill for editable model inputs. |
+| Header | H | Dark gray fill, bold white text, white borders around every cell. |
+| Copy exact | C | Copy formulas into a private session buffer. |
+| Paste exact | V | Paste formulas without shifting references. Does not copy formatting. |
+| Fill and freeze | F | Choose a last-row column, confirm, fill/calculate formulas, then freeze lower rows as black-text values. Seed formulas remain purple; affected columns AutoFit. |
+| Auto resize | R | Current worksheet: A1, gridlines off, fit populated columns with a margin, 70–150% zoom. |
+| Resize all sheets | W | Same view adjustment on all visible worksheets in this workbook; return to the original tab. |
 
-## Source layout
-
-- [src/](src/) — production VBA modules.
-- [ribbon/customUI.xml](ribbon/customUI.xml) — ribbon controls and key tips.
-- [tests/](tests/) — native regression modules and manual checks.
-- [tools/package.py](tools/package.py) — adds the ribbon to an Excel-produced add-in.
-
-The number-format parser leaves unsupported dates, times, and fractions unchanged. Exact copying records whether each cell contains a formula, so literal text beginning with `=` stays text. Fill and freeze calculates the whole target before freezing values, checks for incompatible selections, and restores Excel's application settings after success or error.
-
-## Build and install
-
-1. Open a blank workbook in Windows desktop Excel.
-2. In the VBA editor, import both `.bas` modules from `src/`.
-3. Save as an Excel add-in (`.xlam`) and close it.
-4. With Python 3, run the following from the repository root, using different input and output filenames:
-
-```text
-python tools/package.py SheetFreak-unpackaged.xlam SheetFreak.xlam ribbon/customUI.xml
-```
-
-5. In Excel, open **File → Options → Add-ins → Manage: Excel Add-ins → Go → Browse**, select the packaged `SheetFreak.xlam`, and check it. Restart Excel if needed.
-
-Keep the add-in in a permanent folder. Follow your organization's macro-security policy. The packaging helper generalizes creator and last-editor properties but does not remove every possible metadata field; inspect a fresh build before distributing it.
-
-## Testing
-
-Use a disposable workbook. Import `src/SheetFreak.bas` and `tests/SheetFreakTests.bas` into a macro-enabled `.xlsm`, then run `SheetFreakTests.RunAll` from the VBA editor. For zoom checks, load the add-in, import `tests/ZoomTests.bas`, and run the following in the Immediate window (it writes a report to your temporary folder):
-
-```vb
-ZoomTests.RunZoomChecks Environ$("TEMP") & "\SheetFreak-zoom-results.txt"
-```
-
-See [the manual checklist](tests/MANUAL_TESTS.md) for ribbon, installation, formatting, and workbook checks. Test modules are not part of the release add-in.
+Auto resize reserves roughly 10% horizontal space on the right when the 70% minimum permits. Very wide sheets can still extend beyond the window at that minimum. Empty sheets use 100%. Hidden / very hidden sheets and chart sheets are skipped; a chart tab can still be the original tab returned to. View changes apply to the current workbook window. Column widths, freeze panes and content are unchanged. Both view commands reject grouped tabs. Save your workbook normally to retain view changes after closing it.
 
 ## Limitations
 
-- VBA edits clear normal Excel Undo. Fill and freeze overwrites target content, includes hidden rows, and creates no recovery workbook. Save a backup first; cancellation or a later error can leave partial changes.
-- Frozen values are snapshots. Rerun the operation when inputs change.
-- Exact copying preserves formula text. Unqualified references resolve at the destination sheet or workbook.
-- Keyboard layouts and other add-ins can affect ribbon key tips. This preview is unsigned, and compatibility depends on the Excel environment.
+- VBA changes clear normal Excel Undo. Fill and freeze overwrites the target, including hidden rows, and creates no recovery workbook. Save your work first. Frozen values are snapshots; rerun when inputs change.
+- Number formatting skips unsupported dates, times and fractions. Exact-copy preserves formula text; unqualified references resolve at the destination sheet or workbook.
+- SheetFreak is unsigned. Company policies may block it; use your organization's approved installation process. The installer does not weaken security settings or enable VBA-project access.
+- Other add-ins can affect ribbon placement and key tips. SheetFreak does not rearrange thinkcell or other add-ins.
 
-## License
+## Development and release
 
-MIT. See [LICENSE](LICENSE) for the retained copyright and attribution.
+- [src/](src/): production VBA; [ribbon/](ribbon/): ribbon XML.
+- [tests/](tests/): native Excel tests and the [manual checklist](tests/MANUAL_TESTS.md).
+- [BUILD.md](BUILD.md): build, test and release instructions. Editing `.bas` files alone does not update the installed binary.
+
+MIT. See [LICENSE](LICENSE).

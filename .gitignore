@@ -7,3 +7,8 @@
 __pycache__/
 *.pyc
 ~$*
+build/
+dist/
+
+# Private working notes are never part of the repository or release.
+CHANGELOG.md

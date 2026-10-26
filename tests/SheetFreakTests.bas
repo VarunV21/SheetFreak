@@ -59,7 +59,8 @@ Public Sub RunAll()
     Check sheet.Range("H6").Formula2 = "=A1+$A$2", "single-cell exact copy"
     sheet.Range("Z100").Select: SF_Home
     Check Selection.Address = "$A$1", "home selects A1"
-    Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 200, "home readable zoom bounds"
+    Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 150, "home readable zoom bounds"
+    Check Not ActiveWindow.DisplayGridlines, "home hides gridlines"
     sheet.Range("A1:Z100").Clear
     sheet.Range("A1").Value2 = "Key"
     sheet.Range("A2:A100002").FormulaR1C1 = "=ROW()"
@@ -81,6 +82,7 @@ Public Sub RunAll()
     Check sheet.Range("B50001").Value2 = 100002, "middle-of-range result"
     Check sheet.Range("C100002").NumberFormat = "0%", "column-specific number formats"
     Check sheet.Range("B100002").Font.Color = vbBlack, "lower rows black"
+    Check sheet.Range("B2:C2").Font.Color = RGB(112, 48, 160), "seed formulas purple"
     Check Application.Calculation = calc And Application.EnableEvents = events And Application.ScreenUpdating = screen, "application state restored after success"
     sheet.Range("B2").Value2 = 7
     On Error Resume Next

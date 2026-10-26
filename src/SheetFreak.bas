@@ -1,7 +1,7 @@
 Attribute VB_Name = "SheetFreak"
 Option Explicit
 
-' SheetFreak 0.2.1 | Windows desktop Excel | MIT license.
+' SheetFreak 2.0.0 | Windows desktop Excel | MIT license.
 Private mCopied As Variant
 Private mCopyRows As Long, mCopyCols As Long
 Private mHasCopy As Boolean
@@ -9,30 +9,6 @@ Private mCopyIsFormula() As Boolean
 Private Const MAX_FORMAT_CELLS As Long = 250000
 Private Const MAX_COPY_CELLS As Long = 100000
 Private Const MAX_FILL_CELLS As Long = 5000000
-
-Public Sub Auto_Open()
-    SF_RegisterKeys
-End Sub
-
-Public Sub Auto_Close()
-    SF_UnregisterKeys
-End Sub
-
-Public Sub SF_RegisterKeys()
-    Dim names As Variant, keys As Variant, i As Long
-    names = Array("SF_ZeroDecimals", "SF_CopyExact", "SF_PasteExact", "SF_Home", "SF_Assumption", "SF_Header", "SF_FillFreeze")
-    keys = Array("^%0", "^%c", "^%v", "^%h", "^%a", "^%t", "^%f")
-    For i = 0 To UBound(keys)
-        Application.OnKey CStr(keys(i)), "'" & Replace(ThisWorkbook.Name, "'", "''") & "'!" & names(i)
-    Next i
-End Sub
-
-Public Sub SF_UnregisterKeys()
-    Dim key As Variant
-    For Each key In Array("^%0", "^%c", "^%v", "^%h", "^%a", "^%t", "^%f")
-        Application.OnKey CStr(key)
-    Next key
-End Sub
 
 Private Function SelectedCells(Optional ByVal allowManySheets As Boolean = False) As Range
     If TypeName(Application.Selection) <> "Range" Then Err.Raise 5, , "Select worksheet cells first."
@@ -211,7 +187,7 @@ Public Sub SF_CopyExact(Optional control As Variant)
             mCopyIsFormula(row, col) = target.Cells(row, col).HasFormula
         Next col
     Next row
-    Application.StatusBar = "SheetFreak: exact formulas copied. Choose a destination and press Ctrl+Alt+V."
+    Application.StatusBar = "SheetFreak: exact formulas copied. Choose a destination and use SheetFreak Paste exact."
     Exit Sub
 Failed:
     Fail Err.Description
@@ -222,7 +198,7 @@ Public Sub SF_PasteExact(Optional control As Variant)
     Dim cell As Range, data As Variant, row As Long, col As Long, value As Variant
     Dim oldEvents As Boolean, oldScreen As Boolean, changedState As Boolean, message As String
     On Error GoTo Failed
-    If Not mHasCopy Then Err.Raise 5, , "Use SheetFreak Copy exact formulas first (Ctrl+Alt+C)."
+    If Not mHasCopy Then Err.Raise 5, , "Use SheetFreak Copy exact formulas first."
     Set selected = SelectedCells(): Writable selected
     If selected.Areas.Count <> 1 Then Err.Raise 5, , "Paste into one rectangular range."
     If selected.CountLarge = 1 Then
@@ -265,25 +241,74 @@ Failed:
 End Sub
 
 Public Sub SF_Home(Optional control As Variant)
-    Dim target As Range, lastCell As Range, fitRange As Range, zoom As Long
+    Dim target As Range, oldScreen As Boolean, oldEvents As Boolean, message As String
     On Error GoTo Failed
     Set target = SelectedCells()
-    Set lastCell = target.Worksheet.Cells.Find(What:="*", After:=target.Worksheet.Cells(1, 1), LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder:=xlByColumns, SearchDirection:=xlPrevious, MatchCase:=False, SearchFormat:=False)
-    If lastCell Is Nothing Then
-        ActiveWindow.Zoom = 100
-    Else
-        Set fitRange = target.Worksheet.Range(target.Worksheet.Cells(1, 1), target.Worksheet.Cells(1, lastCell.Column))
-        fitRange.Select
-        ActiveWindow.Zoom = True
-        zoom = ActiveWindow.Zoom
-        If zoom < 70 Then zoom = 70
-        If zoom > 200 Then zoom = 200
-        ActiveWindow.Zoom = zoom
-    End If
-    Application.Goto target.Worksheet.Range("A1"), True
+    oldScreen = Application.ScreenUpdating: oldEvents = Application.EnableEvents
+    Application.ScreenUpdating = False: Application.EnableEvents = False
+    message = ResizeOneSheet(target.Worksheet)
+    Application.EnableEvents = oldEvents: Application.ScreenUpdating = oldScreen
+    If Len(message) > 0 Then Fail message
     Exit Sub
 Failed:
     Fail Err.Description
+End Sub
+
+' View settings apply to the active workbook window. Hidden sheets stay hidden.
+Private Function ResizeOneSheet(ByVal sheet As Worksheet) As String
+    Dim lastCell As Range, fitRange As Range, zoom As Long
+    On Error GoTo Failed
+    sheet.Activate
+    ActiveWindow.DisplayGridlines = False
+    Set lastCell = sheet.Cells.Find(What:="*", After:=sheet.Cells(1, 1), LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder:=xlByColumns, SearchDirection:=xlPrevious, MatchCase:=False, SearchFormat:=False)
+    If lastCell Is Nothing Then
+        ActiveWindow.Zoom = 100
+    Else
+        Set fitRange = sheet.Range(sheet.Cells(1, 1), sheet.Cells(1, lastCell.Column))
+        fitRange.Select
+        ActiveWindow.Zoom = True
+        ' Leave about 10% breathing room on the right when the zoom floor permits.
+        zoom = Int(CDbl(ActiveWindow.Zoom) * 0.9)
+        If zoom < 70 Then zoom = 70
+        If zoom > 150 Then zoom = 150
+        ActiveWindow.Zoom = zoom
+    End If
+    Application.Goto sheet.Range("A1"), True
+    Exit Function
+Failed:
+    ResizeOneSheet = sheet.Name & ": " & Err.Description
+End Function
+
+Public Sub SF_ResizeAll(Optional control As Variant)
+    Dim book As Workbook, originalSheet As Object, sheet As Worksheet
+    Dim oldScreen As Boolean, oldEvents As Boolean, changedState As Boolean
+    Dim problem As String, problems As String
+    On Error GoTo Failed
+    Set book = ActiveWorkbook
+    If book Is Nothing Then Err.Raise 5, , "Open a workbook first."
+    If book Is ThisWorkbook Then Err.Raise 5, , "Choose your working workbook."
+    If ActiveWindow.SelectedSheets.Count <> 1 Then Err.Raise 5, , "Ungroup the worksheet tabs first."
+    Set originalSheet = ActiveSheet
+    oldScreen = Application.ScreenUpdating: oldEvents = Application.EnableEvents
+    changedState = True
+    Application.ScreenUpdating = False: Application.EnableEvents = False
+    For Each sheet In book.Worksheets
+        If sheet.Visible = xlSheetVisible Then
+            problem = ResizeOneSheet(sheet)
+            If Len(problem) > 0 Then problems = problems & problem & vbCrLf
+        End If
+    Next sheet
+    GoTo RestoreState
+Failed:
+    problems = problems & Err.Description & vbCrLf
+RestoreState:
+    On Error Resume Next
+    If Not originalSheet Is Nothing Then originalSheet.Activate
+    If changedState Then
+        Application.EnableEvents = oldEvents: Application.ScreenUpdating = oldScreen
+    End If
+    On Error GoTo 0
+    If Len(problems) > 0 Then Fail "Some views could not be fully resized:" & vbCrLf & problems
 End Sub
 
 Private Sub ValidateOrdinaryRange(ByVal target As Range)
@@ -337,7 +362,7 @@ Public Sub SF_FillFreeze(Optional control As Variant)
         "Last row: " & Format$(lastRow, "#,##0") & vbCrLf & _
         "Cells replaced: " & Format$(target.CountLarge - top.CountLarge, "#,##0") & vbCrLf & vbCrLf & _
         "ALL rows in this range will be overwritten, including hidden rows." & vbCrLf & _
-        "Lower rows become values with black text; affected columns are AutoFit." & vbCrLf & _
+        "Starting formulas become purple. Lower rows become values with black text; affected columns are AutoFit." & vbCrLf & _
         "Results are snapshots. Normal Excel Undo cannot restore them." & vbCrLf & vbCrLf & _
         "No backup or recovery workbook will be created." & vbCrLf & _
         "Save your working workbook before continuing if you need a recovery point." & vbCrLf & vbCrLf & "Continue?"
@@ -388,6 +413,7 @@ Public Sub SF_ExecuteFill(ByVal top As Range, ByVal key As Range)
         lower.Columns(col).NumberFormat = top.Cells(1, col).NumberFormat
     Next col
     lower.Font.Color = vbBlack
+    top.Font.Color = RGB(112, 48, 160)
     target.EntireColumn.AutoFit
     top.Select
     GoTo RestoreState
@@ -408,16 +434,18 @@ RestoreState:
 End Sub
 
 Public Sub SF_Help(Optional control As Variant)
-    MsgBox "SheetFreak 0.2.1" & vbCrLf & vbCrLf & _
-        "Ctrl+Alt+0  Zero decimals (preserves number style)" & vbCrLf & _
-        "Ctrl+Alt+C  Copy exact formulas" & vbCrLf & _
-        "Ctrl+Alt+V  Paste exact formulas" & vbCrLf & _
-        "Ctrl+Alt+H  Auto resize (A1 and 70-200% zoom)" & vbCrLf & _
-        "Ctrl+Alt+A  Assumption format" & vbCrLf & _
-        "Ctrl+Alt+T  Header format" & vbCrLf & _
-        "Ctrl+Alt+F  Fill and freeze (confirmation required)" & vbCrLf & vbCrLf & _
+    MsgBox "SheetFreak 2.0.0" & vbCrLf & vbCrLf & _
+        "Press Alt, S to open SheetFreak, then:" & vbCrLf & _
+        "0  Zero decimals (preserves number style)" & vbCrLf & _
+        "A  Assumption format" & vbCrLf & _
+        "H  Header format" & vbCrLf & _
+        "C / V  Copy / paste exact formulas" & vbCrLf & _
+        "F  Fill and freeze (confirmation required)" & vbCrLf & _
+        "R  Auto resize current sheet" & vbCrLf & _
+        "W  Auto resize all visible worksheets" & vbCrLf & vbCrLf & _
+        "Resize: A1, right margin, 70-150% zoom, gridlines off." & vbCrLf & _
         "Fill and freeze: select one row of formulas, then choose a last-row column." & vbCrLf & _
         "No recovery workbook is created. Save your work before fill and freeze." & vbCrLf & _
-        "Use the ribbon if your keyboard layout or another add-in conflicts." & vbCrLf & _
+        "No Ctrl+Alt shortcuts are registered. Excel may reassign ribbon key tips." & vbCrLf & _
         "VBA edits clear normal Undo. No files are automatically saved.", vbInformation, "SheetFreak"
 End Sub

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui">
-  <ribbon><tabs><tab id="sfTab" label="SheetFreak" keytip="SF" insertAfterMso="TabHome">
+  <ribbon><tabs><tab id="sfTab" label="SheetFreak" keytip="S" insertAfterMso="TabHome">
     <group id="sfFormats" label="Format">
-      <button id="sfZero" label="Zero decimals" size="large" keytip="0" imageMso="DecimalsDecrease" onAction="SF_ZeroDecimals" screentip="Zero decimal places (Ctrl+Alt+0)" supertip="Keep currency, accounting, commas and percentages. Dates, times and fractions stay unchanged. Values retain full precision."/>
-      <button id="sfAssumption" label="Assumption" size="large" keytip="A" imageMso="FontColorPicker" onAction="SF_Assumption" screentip="Assumption format (Ctrl+Alt+A)" supertip="Blue text and pale yellow fill for editable model assumptions."/>
-      <button id="sfHeader" label="Header" size="large" keytip="H" imageMso="BordersAll" onAction="SF_Header" screentip="Header format (Ctrl+Alt+T)" supertip="Dark gray fill, bold white text and thin white borders around each cell."/>
+      <button id="sfZero" label="Zero decimals" size="large" keytip="0" imageMso="DecimalsDecrease" onAction="SF_ZeroDecimals" screentip="Zero decimal places" supertip="Keep currency, accounting, commas and percentages. Dates, times and fractions stay unchanged. Values retain full precision."/>
+      <button id="sfAssumption" label="Assumption" size="large" keytip="A" imageMso="FontColorPicker" onAction="SF_Assumption" screentip="Assumption format" supertip="Blue text and pale yellow fill for editable model assumptions."/>
+      <button id="sfHeader" label="Header" size="large" keytip="H" imageMso="BordersAll" onAction="SF_Header" screentip="Header format" supertip="Dark gray fill, bold white text and thin white borders around each cell."/>
     </group>
     <group id="sfFormulas" label="Formulas">
-      <button id="sfCopy" label="Copy exact" size="large" keytip="C" imageMso="Copy" onAction="SF_CopyExact" screentip="Copy exact formulas (Ctrl+Alt+C)" supertip="Copy one cell or rectangular range into SheetFreak's private buffer. Formula references will remain unchanged on paste."/>
+      <button id="sfCopy" label="Copy exact" size="large" keytip="C" imageMso="Copy" onAction="SF_CopyExact" screentip="Copy exact formulas" supertip="Copy one cell or rectangular range into SheetFreak's private buffer. Formula references will remain unchanged on paste."/>
       <button id="sfPaste" label="Paste exact" size="large" keytip="V" imageMso="PasteFormulas" onAction="SF_PasteExact" screentip="Paste without shifting references. Select a top-left destination cell or a matching rectangle. Does not paste formatting."/>
-      <button id="sfFill" label="Fill and freeze" size="large" keytip="F" imageMso="FillDown" onAction="SF_FillFreeze" screentip="Fill and freeze (Ctrl+Alt+F)" supertip="Select a row of formulas, choose a last-row reference column, and confirm. Calculates all formulas, then freezes lower rows as values. Applies black text and AutoFit. Does not create a backup workbook."/>
+      <button id="sfFill" label="Fill and freeze" size="large" keytip="F" imageMso="FillDown" onAction="SF_FillFreeze" screentip="Fill and freeze" supertip="Select a row of formulas, choose a last-row reference column, and confirm. Calculates all formulas, then freezes lower rows as values. Keeps seed formulas purple; applies black text to lower values and AutoFit. Does not create a backup workbook."/>
     </group>
     <group id="sfView" label="View">
-      <button id="sfHome" label="Auto resize" size="large" keytip="R" imageMso="ZoomToSelection" onAction="SF_Home" screentip="Auto resize (Ctrl+Alt+H)" supertip="Return to A1 and fit populated columns at 70-200% zoom. Compact sheets can zoom in; wider sheets zoom out. Column widths and freeze panes stay unchanged."/>
+      <button id="sfHome" label="Auto resize" size="large" keytip="R" imageMso="ZoomToSelection" onAction="SF_Home" screentip="Auto resize" supertip="Return to A1, hide gridlines and fit populated columns with a right margin at 70-150% zoom. Very wide sheets may hit the 70% minimum. Column widths and freeze panes stay unchanged."/>
+      <button id="sfResizeAll" label="Resize all sheets" size="large" keytip="W" imageMso="ZoomToSelection" onAction="SF_ResizeAll" screentip="Auto resize workbook" supertip="Auto resize every visible worksheet in this workbook, hide gridlines and return to the original tab. Hidden sheets and chart sheets are left alone. Applies to the current workbook window."/>
     </group>
     <group id="sfHelpGroup" label="Help">
       <button id="sfHelp" label="Help" keytip="?" imageMso="Help" onAction="SF_Help"/>
-      <button id="sfEnable" label="Enable shortcuts" keytip="E" onAction="SF_EnableKeys"/>
-      <button id="sfDisable" label="Disable shortcuts" keytip="D" onAction="SF_DisableKeys"/>
     </group>
   </tab></tabs></ribbon>
 </customUI>
