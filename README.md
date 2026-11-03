@@ -6,7 +6,7 @@ An Excel toolbox for people who are freaks in the sheets. Install once; use its 
 
 This repository is the canonical source. Version **2.0.0** was compiled and tested in Windows desktop Excel, including 73 native checks, ribbon Fill and Freeze, and loading after a full restart. Download the built release asset for installation.
 
-**In development: 2.1.0 adds Share Excel (Alt, S, S).** Source is prepared; native compilation and testing are pending. The feature is not in the 2.0.0 download.
+**In development: 2.1.0 adds Share Excel (Alt, S, S).** A preview has been compiled and installed locally; full native regression and user testing are pending. The feature is not in the 2.0.0 download.
 
 ## Install
 
@@ -36,7 +36,7 @@ Auto resize reserves roughly 10% horizontal space on the right when the 70% mini
 
 ## Share Excel (2.1 preview)
 
-Press **Alt, S, S** to write a closed snapshot of the whole workbook, including unsaved edits, then reveal it in File Explorer. Drag that file into your chat, or use the chat's upload button. Outlook is not required and nothing is uploaded automatically. The original stays open, keeps its name and unsaved status, and is not saved by this command.
+Press **Alt, S, S** to write a closed snapshot of the whole workbook, including unsaved edits, then reveal it in File Explorer. The filename adds `_vS` before the extension, for example `Budget_vS.xlsx`. Drag that file into your chat, or use the chat's upload button. Outlook is not required and nothing is uploaded automatically. The original stays open, keeps its name and unsaved status, and is not saved by this command.
 
 Each invocation creates a separate copy under `%TEMP%\SheetFreak\Share`. Copies are retained until you or Windows remove them; delete them when finished or move a copy somewhere permanent if needed. The snapshot includes hidden sheets, formulas, links, macros and existing protection; it is not a sanitized export. It preserves `.xlsx`, `.xlsm`, `.xlsb` or `.xls` format. Other formats must first be saved as a supported workbook; unsaved workbooks containing macros must first be saved as `.xlsm`. Your AI service must support and be able to open the resulting file. No external data refresh or forced recalculation is performed.
 

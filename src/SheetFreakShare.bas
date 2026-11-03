@@ -51,7 +51,7 @@ Public Function SF_CreateShareCopy(ByVal book As Workbook, Optional ByVal shareR
         stem = Replace(stem, CStr(bad), "_")
     Next bad
     stem = Left$(stem, 60)
-    snapshot = fso.BuildPath(folder, stem & " - Share" & extension)
+    snapshot = fso.BuildPath(folder, stem & "_vS" & extension)
     oldEvents = Application.EnableEvents: changedEvents = True
     Application.EnableEvents = False
     book.SaveCopyAs snapshot

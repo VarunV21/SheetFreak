@@ -26,6 +26,7 @@ Public Sub RunShareChecks(ByVal reportPath As String)
     originalName = book.FullName: originalSaved = book.Saved: beforeCount = Workbooks.Count
     first = Application.Run("'SheetFreak.xlam'!SF_CreateShareCopy", book, root)
     Check fso.FileExists(first), "snapshot created", log
+    Check fso.GetFileName(first) = "Source_vS.xlsx", "snapshot uses _vS suffix", log
     Check book.FullName = originalName And book.Saved = originalSaved, "source name and unsaved state unchanged", log
     Check Workbooks.Count = beforeCount And ActiveWorkbook Is book, "source stays active and no snapshot workbook is opened", log
     Check Application.EnableEvents = oldEvents, "event state restored after success", log
