@@ -13,7 +13,7 @@ from release import REPORTS, release, validate_binary, validate_reports
 
 class ReleaseChecks(unittest.TestCase):
     def test_source_consistency(self):
-        self.assertEqual(check(), "2.0.0")
+        self.assertEqual(check(), "2.1.0")
 
     def test_native_confirmation_required(self):
         with self.assertRaisesRegex(ValueError, "validation must be confirmed"):

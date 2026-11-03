@@ -1,7 +1,7 @@
 Attribute VB_Name = "SheetFreak"
 Option Explicit
 
-' SheetFreak 2.0.0 | Windows desktop Excel | MIT license.
+' SheetFreak 2.1.0 | Windows desktop Excel | MIT license.
 Private mCopied As Variant
 Private mCopyRows As Long, mCopyCols As Long
 Private mHasCopy As Boolean
@@ -434,7 +434,7 @@ RestoreState:
 End Sub
 
 Public Sub SF_Help(Optional control As Variant)
-    MsgBox "SheetFreak 2.0.0" & vbCrLf & vbCrLf & _
+    MsgBox "SheetFreak 2.1.0" & vbCrLf & vbCrLf & _
         "Press Alt, S to open SheetFreak, then:" & vbCrLf & _
         "0  Zero decimals (preserves number style)" & vbCrLf & _
         "A  Assumption format" & vbCrLf & _
@@ -442,10 +442,12 @@ Public Sub SF_Help(Optional control As Variant)
         "C / V  Copy / paste exact formulas" & vbCrLf & _
         "F  Fill and freeze (confirmation required)" & vbCrLf & _
         "R  Auto resize current sheet" & vbCrLf & _
-        "W  Auto resize all visible worksheets" & vbCrLf & vbCrLf & _
+        "W  Auto resize all visible worksheets" & vbCrLf & _
+        "S  Share Excel: snapshot to drag from Explorer into a chat" & vbCrLf & vbCrLf & _
         "Resize: A1, right margin, 70-150% zoom, gridlines off." & vbCrLf & _
         "Fill and freeze: select one row of formulas, then choose a last-row column." & vbCrLf & _
         "No recovery workbook is created. Save your work before fill and freeze." & vbCrLf & _
         "No Ctrl+Alt shortcuts are registered. Excel may reassign ribbon key tips." & vbCrLf & _
-        "VBA edits clear normal Undo. No files are automatically saved.", vbInformation, "SheetFreak"
+        "Share Excel writes a local copy of the whole workbook, including hidden sheets." & vbCrLf & _
+        "VBA edits clear normal Undo. Your working file is not automatically saved.", vbInformation, "SheetFreak"
 End Sub

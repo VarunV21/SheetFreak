@@ -12,6 +12,7 @@ REPORTS = {
     "native-test-results.txt": "ALL TESTS PASSED",
     "zoom-test-results.txt": "ALL ZOOM CHECKS PASSED",
     "workbook-view-test-results.txt": "ALL WORKBOOK VIEW CHECKS PASSED",
+    "share-test-results.txt": "ALL SHARE CHECKS PASSED",
 }
 
 
@@ -39,7 +40,7 @@ def validate_binary(binary, ribbon):
             raise ValueError("Missing VBA compound document")
         if archive.read("customUI/customUI.xml") != Path(ribbon).read_bytes():
             raise ValueError("Add-in ribbon differs from this checkout; rebuild the candidate")
-        for test_module in (b"SheetFreakTests", b"ZoomTests", b"WorkbookViewTests"):
+        for test_module in (b"SheetFreakTests", b"ZoomTests", b"WorkbookViewTests", b"ShareTests"):
             if test_module in archive.read("xl/vbaProject.bin"):
                 raise ValueError("Test module appears in production VBA")
 

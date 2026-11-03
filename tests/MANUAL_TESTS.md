@@ -20,3 +20,13 @@ Report: Excel version, command used, selected range, expected outcome and actual
 - Press Alt, S to open SheetFreak. Verify H applies Header and R runs Auto resize. Confirm Format, Formulas, View and Help are separate groups.
 
 - Confirm S actually opens SheetFreak in the installed Excel environment. If it conflicts, use SF and revise Help/README/INSTALL before release. Keep File on F.
+
+## Share Excel (2.1)
+
+- In a saved .xlsx, make unsaved edits, press Alt, S, S and verify Explorer selects a new closed file. Drag it into a test chat without submitting a message. Confirm that the original remains open and unsaved, and the snapshot contains those edits. Use synthetic data only.
+- Repeat from a new never-saved workbook and with a worksheet chart selected. Share Excel should use ActiveWorkbook, independent of cell selection.
+- Run twice quickly. Confirm the copies are different files and neither overwrites the other.
+- Check formulas, formatting, hidden sheets, links and protection are preserved; the snapshot is the entire workbook. Test read-only source files and .xlsm/.xlsb/.xls formats. Confirm an unsaved workbook with VBA gets a clear save-as-.xlsm instruction.
+- Test a password-encrypted workbook: the copy must remain protected; do not imply an AI service can read encrypted files. Check blocked/unsupported formats fail clearly.
+- Test a failed save and an Explorer failure. Events must be restored; if the copy exists but Explorer fails, its path should be displayed.
+- Confirm no Outlook draft, email, automatic upload, data refresh or source save occurs. Verify Alt S S and the drag/upload path in the intended ChatGPT/Claude app during acceptance testing.
