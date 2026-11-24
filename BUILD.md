@@ -2,7 +2,7 @@
 
 ## Current status
 
-Version 2.2.0 passed local user acceptance and release validation on November 24, 2026: 45 engine, 14 Share Excel, 12 zoom, 16 workbook-view and 28 preset checks (115 total), plus seven offline checks. Automatic loading after a fresh Excel startup was verified. The release binary matches the installed, compiled candidate byte for byte; its ribbon matches this checkout and contains no test modules.
+Version 2.2.0 passed local user acceptance and release validation on November 24, 2026: 45 engine, 14 Share Excel, 12 zoom, 16 workbook-view and 28 preset checks (115 total), plus eight offline checks. Automatic loading after a fresh Excel startup was verified. The release binary matches the installed, compiled candidate byte for byte; its ribbon matches this checkout and contains no test modules.
 
 The engine and Share Excel source checks ran in an isolated host containing the production source. Share success paths also ran against the installed add-in; its deliberate error-path check was rerun within the host to avoid the VBA debugger stopping at the cross-project Application.Run boundary. View and preset checks ran against the installed add-in. Test files and reports remain local, outside the release ZIP. The unchanged optional installer was reviewed but its full installer/rollback matrix was not rerun for 2.2.0. Manual installation at the existing registered path and startup loading were verified; this does not establish compatibility with every Office configuration or every workbook file format.
 

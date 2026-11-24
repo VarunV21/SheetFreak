@@ -4,11 +4,11 @@ An Excel toolbox for people who are freaks in the sheets. Install once; use its 
 
 **[Download releases](https://github.com/VarunV21/SheetFreak/releases)** · **[Installation guide](INSTALL.md)** · [My website](https://varun-verma-portfolio.vercel.app/projects/sheetfreak/)
 
-This repository is the canonical source. **Version 2.2.0** is the current release, compiled and tested in Windows desktop Excel. It passed 115 native checks and seven offline checks; automatic loading after a fresh Excel startup was verified. Download the built release ZIP for installation.
+This repository is the canonical source. **Version 2.2.0** is the current release, compiled and tested in Windows desktop Excel. It passed 115 native checks and eight offline checks; automatic loading after a fresh Excel startup was verified. Download the built release ZIP for installation.
 
 ## Version 2.2 features
 
-Version 2.2 adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 56 native preset/resize checks and seven offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally and user acceptance is complete. The final color and ribbon adjustments passed all 28 formatting checks, and the ribbon layout was checked in Excel. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
+Version 2.2 adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 56 native preset/resize checks and eight offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally and user acceptance is complete. The final color and ribbon adjustments passed all 28 formatting checks, and the ribbon layout was checked in Excel. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
 
 All keys below follow Alt, S:
 

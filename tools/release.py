@@ -22,7 +22,7 @@ def validate_reports(folder):
     for filename, marker in REPORTS.items():
         data = (Path(folder) / filename).read_bytes()
         text = data.decode("utf-8-sig").splitlines()
-        if marker not in text or any("FAIL" in line.upper() for line in text):
+        if marker not in text or any(line.lstrip().upper().startswith("FAIL") for line in text):
             raise ValueError(f"Native report did not pass: {filename}")
         if not any(line.startswith("PASS:") for line in text):
             raise ValueError(f"Native report has no checks: {filename}")

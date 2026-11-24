@@ -31,6 +31,12 @@ class ReleaseChecks(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "did not pass"):
                 validate_reports(folder)
 
+    def test_successful_failure_path_check_is_accepted(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for name, marker in REPORTS.items():
+                Path(folder, name).write_text("PASS: failure reported without changing event state\n" + marker + "\n")
+            self.assertEqual(len(validate_reports(folder)), len(REPORTS))
+
     def test_empty_report_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
             for name, marker in REPORTS.items():
