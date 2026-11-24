@@ -6,11 +6,11 @@ An Excel toolbox for people who are freaks in the sheets. Install once; use its 
 
 This repository is the canonical source. Version **2.0.0** was compiled and tested in Windows desktop Excel, including 73 native checks, ribbon Fill and Freeze, and loading after a full restart. Download the built release asset for installation.
 
-**In development: 2.1.0 adds Share Excel (Alt, S, S).** A preview has been compiled and installed locally; full native regression and user testing are pending. The feature is not in the 2.0.0 download.
+**Current source: 2.2.0**, approved after local Excel testing. The published installation download remains 2.0.0; it does not yet include Share Excel or the new formatting presets. A new release ZIP still requires the complete release validation described in [BUILD.md](BUILD.md).
 
-## 2.2 test branch
+## Version 2.2 features
 
-This branch adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 56 native preset/resize checks and seven offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally for user acceptance and must not be merged to main before acceptance. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
+Version 2.2 adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 56 native preset/resize checks and seven offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally and user acceptance is complete. The final color and ribbon adjustments passed all 28 formatting checks, and the ribbon layout was checked in Excel. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
 
 All keys below follow Alt, S:
 
@@ -76,4 +76,6 @@ Each invocation creates a separate copy under `%TEMP%\SheetFreak\Share`. Copies 
 
 MIT. See [LICENSE](LICENSE).
 
-The 2.2 test branch includes borderless dark headers (H) and light gray headers with bold black text (J). Both styles remove existing cell borders. Currency 0 dp uses the built-in dollar icon; its number format remains currency.
+The 2.2 test branch includes borderless dark headers (H) and light gray (#F2F2F2) headers with bold black text (J). Both styles remove existing cell borders. Currency 0 dp uses the built-in dollar icon; its number format remains currency.
+
+The Format group is ordered in two columns: Zero decimals / Notes, Assumption / Yellow highlight, Header / Light header. The light header matches RGB(242,242,242) (#F2F2F2); the green font preset uses darker RGB(0,97,0) (#006100).

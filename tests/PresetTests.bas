@@ -18,7 +18,7 @@ Public Sub RunPresetChecks(ByVal reportPath As String)
     Application.Run "'SheetFreak.xlam'!SF_BlueFont"
     Check target.Font.Color = RGB(0, 0, 255), "blue font on range", log
     Application.Run "'SheetFreak.xlam'!SF_GreenFont"
-    Check target.Font.Color = RGB(0, 128, 0), "green font on range", log
+    Check target.Font.Color = RGB(0, 97, 0), "green font on range", log
     Application.Run "'SheetFreak.xlam'!SF_RedFont"
     Check target.Font.Color = RGB(255, 0, 0), "red font on range", log
     Check target.Font.Bold And target.Font.Italic And target.NumberFormat = "0.00", "font colors preserve font style and number format", log
@@ -45,8 +45,8 @@ Public Sub RunPresetChecks(ByVal reportPath As String)
     Check sheet.Range("B1").Formula2 = "=1/8", "formatting preserves formula", log
     sheet.Range("C1,E1").Select
     Application.Run "'SheetFreak.xlam'!SF_GreenFont"
-    Check sheet.Range("C1").Font.Color = RGB(0, 128, 0) And sheet.Range("E1").Font.Color = RGB(0, 128, 0), "font preset supports nonadjacent cells", log
-    Check sheet.Range("D1").Font.Color <> RGB(0, 128, 0), "nonselected cell unchanged", log
+    Check sheet.Range("C1").Font.Color = RGB(0, 97, 0) And sheet.Range("E1").Font.Color = RGB(0, 97, 0), "font preset supports nonadjacent cells", log
+    Check sheet.Range("D1").Font.Color <> RGB(0, 97, 0), "nonselected cell unchanged", log
     Set target = sheet.Range("G1:H2"): target.Value2 = "Header"
     target.Borders.LineStyle = xlContinuous: target.Borders.Color = vbWhite
     target.Select: Application.Run "'SheetFreak.xlam'!SF_Header"
@@ -56,7 +56,7 @@ Public Sub RunPresetChecks(ByVal reportPath As String)
     Check target.Borders(xlEdgeLeft).LineStyle = xlNone And target.Borders(xlEdgeRight).LineStyle = xlNone, "dark header removes left and right borders", log
     target.Borders.LineStyle = xlContinuous: target.Borders.Color = vbWhite
     Application.Run "'SheetFreak.xlam'!SF_LightHeader"
-    Check target.Interior.Color = RGB(217, 217, 217) And target.Font.Color = vbBlack And target.Font.Bold, "light header colors and bold", log
+    Check target.Interior.Color = RGB(242, 242, 242) And target.Font.Color = vbBlack And target.Font.Bold, "light header colors and bold", log
     Check target.Borders(xlInsideVertical).LineStyle = xlNone And target.Borders(xlInsideHorizontal).LineStyle = xlNone, "light header removes inside borders", log
     Check target.Borders(xlEdgeTop).LineStyle = xlNone And target.Borders(xlEdgeBottom).LineStyle = xlNone, "light header removes top and bottom borders", log
     Check target.Borders(xlEdgeLeft).LineStyle = xlNone And target.Borders(xlEdgeRight).LineStyle = xlNone And target.Cells(1, 1).Value2 = "Header", "light header removes side borders and preserves text", log

@@ -5,9 +5,9 @@
       <button id="sfZero" label="Zero decimals" size="normal" keytip="0" imageMso="DecimalsDecrease" onAction="SF_ZeroDecimals" screentip="Zero decimal places" supertip="Keep currency, accounting, commas and percentages. Dates, times and fractions stay unchanged. Values retain full precision."/>
       <button id="sfAssumption" label="Assumption" size="normal" keytip="A" imageMso="FontColorPicker" onAction="SF_Assumption" screentip="Assumption format" supertip="Blue text and pale yellow fill for editable model assumptions."/>
       <button id="sfHeader" label="Header" size="normal" keytip="H" imageMso="BordersAll" onAction="SF_Header" screentip="Header format" supertip="Dark gray fill and bold white text. Clears existing borders."/>
-      <button id="sfLightHeader" label="Light header" keytip="J" imageMso="BordersAll" onAction="SF_LightHeader" supertip="Light gray fill and bold black text. Clears existing borders."/>
       <button id="sfNotes" label="Notes" keytip="N" imageMso="Italic" onAction="SF_Notes" supertip="Apply gray italic text. Other formatting and contents stay unchanged."/>
       <button id="sfYellow" label="Yellow highlight" keytip="Y" imageMso="TextHighlightColorPicker" onAction="SF_YellowFill" supertip="Pale yellow fill only, matching Assumption. Keeps the existing font color."/>
+      <button id="sfLightHeader" label="Light header" keytip="J" imageMso="BordersAll" onAction="SF_LightHeader" supertip="Light gray fill and bold black text. Clears existing borders."/>
     </group>
     <group id="sfColors" label="Colors">
         <button id="sfBlue" label="Blue font" keytip="B" onAction="SF_BlueFont" supertip="Blue font only; preserves fill and other font properties."/>

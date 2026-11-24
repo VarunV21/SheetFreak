@@ -49,7 +49,7 @@ Private Sub ApplyPreset(ByVal preset As String)
             target.Font.Color = RGB(128, 128, 128)
             target.Font.Italic = True
         Case "blue": target.Font.Color = RGB(0, 0, 255)
-        Case "green": target.Font.Color = RGB(0, 128, 0)
+        Case "green": target.Font.Color = RGB(0, 97, 0)
         Case "red": target.Font.Color = RGB(255, 0, 0)
         Case "yellow"
             target.Interior.Pattern = xlSolid
@@ -130,7 +130,7 @@ Private Sub ApplyHeader(ByVal light As Boolean)
         .Borders.LineStyle = xlNone
         If light Then
             .Font.Color = vbBlack
-            .Interior.Color = RGB(217, 217, 217)
+            .Interior.Color = RGB(242, 242, 242)
         Else
             .Font.Color = vbWhite
             .Interior.Color = RGB(64, 64, 64)

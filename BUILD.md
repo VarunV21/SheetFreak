@@ -2,9 +2,9 @@
 
 ## Current status
 
-Version 2.2.0 is a format/zoom test candidate. It passed 28 preset, 12 zoom and 16 workbook-view checks against the compiled add-in, plus ribbon Currency 4 and WC/WA dispatch checks. Do not merge it before user acceptance. Import PresetTests.bas into a disposable test host and run `PresetTests.RunPresetChecks` with an explicit report path. The release gate now requires preset-test-results.txt in addition to the other four reports.
+Version 2.2.0 is approved for main after local user acceptance. It passed 28 preset, 12 zoom and 16 workbook-view checks against the compiled add-in, plus ribbon Currency 4 and WC/WA dispatch checks. The final light-gray, darker-green and ribbon-order update passed all 28 preset checks again, and its ribbon layout was verified in Excel. Seven offline checks passed. The installed add-in includes both production modules and was compiled successfully.
 
-The 2.1.0 Share Excel source awaits native compilation and testing. Earlier 2.0.0 reports do not validate this candidate. Import both production modules, including `src/SheetFreakShare.bas`. Do not relabel an older binary as 2.1.0.
+The published download remains 2.0.0. Before publishing a 2.2.0 release ZIP, rerun the full engine and Share Excel regression checks, refresh all five reports against the final build, and complete the installer/manual release checks below. Existing reports from earlier versions do not establish complete release validation. Import PresetTests.bas into a disposable test host and run `PresetTests.RunPresetChecks` with an explicit report path.
 
 Version 2.0.0 was compiled from this source and passed 45 engine, 12 zoom and 16 workbook-view native Excel checks. Ribbon Fill and Freeze, cancel behavior, colors, Alt S, and persistent loading after restart were also checked. The installer upgrade required the checkbox step documented in INSTALL.md. These checks do not establish compatibility with every Office configuration. Offline checks do not establish that Excel has compiled, loaded or tested the new VBA. The existing local 0.2.1 binary must not be relabeled or packaged as 2.0.0.
 
@@ -44,10 +44,10 @@ python -m unittest discover -s tests -p "test_*.py"
 python tools/release.py build/SheetFreak.xlam --reports build/reports --confirm-native-tested
 ```
 
-Place this build's four native reports in `build/reports/` with the filenames above. The release helper requires passing report markers and records source and binary hashes. This is a human validation gate, not automatic proof that VBA matches the source: the maintainer must verify the candidate was built from this checkout and complete the manual checks before passing the flag.
+Place this build's five native reports in `build/reports/` with the filenames above. The release helper requires passing report markers and records source and binary hashes. This is a human validation gate, not automatic proof that VBA matches the source: the maintainer must verify the candidate was built from this checkout and complete the manual checks before passing the flag.
 
-The helper creates `dist/SheetFreak-v2.1.0.zip`, containing the add-in, optional installer, checksum, installation guide, license and version. No user workbooks or machine-specific installation notes are included.
+The helper creates `dist/SheetFreak-v2.2.0.zip`, containing the add-in, optional installer, checksum, installation guide, license and version. No user workbooks or machine-specific installation notes are included.
 
 After user testing, merge the reviewed change, tag the exact tested commit and publish the ZIP as a GitHub Release asset. Keep draft changes unreleased until native validation and user acceptance pass. Users should download that asset, not GitHub's source-code ZIP.
 
-The requested tab key tip is S. Verify Alt, S, S invokes Share Excel. During native testing verify Alt, S opens SheetFreak and H/R/W dispatch the correct tools. If Excel reassigns S because of a conflict, retain the known SF fallback and update all public instructions and Help to match before release. F is reserved for File. Confirm Ctrl+Alt+V still opens native Paste Special after a clean restart.
+The requested tab key tip is S. Verify Alt, S, S invokes Share Excel. During native testing verify Alt, S opens SheetFreak and H/J and WC/WA dispatch the correct tools. If Excel reassigns S because of a conflict, retain the known SF fallback and update all public instructions and Help to match before release. F is reserved for File. Confirm Ctrl+Alt+V still opens native Paste Special after a clean restart.
