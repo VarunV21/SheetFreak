@@ -23,11 +23,11 @@ Public Sub RunZoomChecks(ByVal reportPath As String)
     ActiveWindow.Zoom = True
     expected = Int(CDbl(ActiveWindow.Zoom) * 0.9)
     If expected < 70 Then expected = 70
-    If expected > 150 Then expected = 150
+    If expected > 120 Then expected = 120
     ActiveWindow.DisplayGridlines = True
     sheet.Range("J17").Select
     Application.Run "'SheetFreak.xlam'!SF_Home"
-    Check ActiveWindow.Zoom = expected, "compact sheet fits width within 70-150%", log
+    Check ActiveWindow.Zoom = expected, "compact sheet fits width within 70-120%", log
     Check ActiveWindow.Zoom > 100, "compact sheet zooms above 100%", log
     Check Not ActiveWindow.DisplayGridlines, "gridlines hidden", log
     Check Selection.Address = "$A$1", "returns to A1", log
@@ -41,7 +41,7 @@ Public Sub RunZoomChecks(ByVal reportPath As String)
         sheet.Columns("A:T").ColumnWidth = trialWidth
         sheet.Range("A1:T1").Select: ActiveWindow.Zoom = True
         fitZoom = ActiveWindow.Zoom
-        If fitZoom >= 100 And fitZoom <= 160 Then Exit For
+        If fitZoom >= 100 And fitZoom <= 130 Then Exit For
     Next trialWidth
     Check trialWidth <= 80, "medium-width fixture available", log
     expected = Int(CDbl(fitZoom) * 0.9)
@@ -54,7 +54,7 @@ Public Sub RunZoomChecks(ByVal reportPath As String)
     ActiveWindow.Zoom = True
     expected = Int(CDbl(ActiveWindow.Zoom) * 0.9)
     If expected < 70 Then expected = 70
-    If expected > 150 Then expected = 150
+    If expected > 120 Then expected = 120
     sheet.Range("AZ17").Select
     Application.Run "'SheetFreak.xlam'!SF_Home"
     Check ActiveWindow.Zoom = expected, "wide sheet still fits within bounds", log

@@ -33,7 +33,7 @@ Public Sub RunWorkbookViewChecks(ByVal reportPath As String)
     second.Range("A1:AZ1").Select: ActiveWindow.Zoom = True
     expected = Int(CDbl(ActiveWindow.Zoom) * 0.9)
     If expected < 70 Then expected = 70
-    If expected > 150 Then expected = 150
+    If expected > 120 Then expected = 120
     width = second.Columns("A:AZ").Width
     first.Activate
     Application.Run "'SheetFreak.xlam'!SF_ResizeAll"
@@ -42,7 +42,7 @@ Public Sub RunWorkbookViewChecks(ByVal reportPath As String)
         sheet.Activate
         Check Selection.Address = "$A$1", sheet.Name & " selects A1", log
         Check Not ActiveWindow.DisplayGridlines, sheet.Name & " gridlines off", log
-        Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 150, sheet.Name & " zoom bounds", log
+        Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 120, sheet.Name & " zoom bounds", log
     Next sheet
     Check ActiveWindow.Zoom = expected, "wide sheet applies margin or readability floor", log
     Check second.Columns("A:AZ").Width = width, "wide column widths preserved", log

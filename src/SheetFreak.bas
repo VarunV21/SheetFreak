@@ -1,7 +1,7 @@
 Attribute VB_Name = "SheetFreak"
 Option Explicit
 
-' SheetFreak 2.1.0 | Windows desktop Excel | MIT license.
+' SheetFreak 2.2.0 | Windows desktop Excel | MIT license.
 Private mCopied As Variant
 Private mCopyRows As Long, mCopyCols As Long
 Private mHasCopy As Boolean
@@ -37,6 +37,64 @@ End Sub
 
 Private Sub Fail(ByVal description As String)
     MsgBox description, vbExclamation, "SheetFreak"
+End Sub
+
+' Each preset changes only the requested formatting properties.
+Private Sub ApplyPreset(ByVal preset As String)
+    Dim target As Range
+    On Error GoTo Failed
+    Set target = SelectedCells(): Writable target: SmallSelection target, MAX_FORMAT_CELLS
+    Select Case preset
+        Case "notes"
+            target.Font.Color = RGB(128, 128, 128)
+            target.Font.Italic = True
+        Case "blue": target.Font.Color = RGB(0, 0, 255)
+        Case "green": target.Font.Color = RGB(0, 128, 0)
+        Case "red": target.Font.Color = RGB(255, 0, 0)
+        Case "yellow"
+            target.Interior.Pattern = xlSolid
+            target.Interior.Color = RGB(255, 242, 204)
+        Case "currency"
+            target.NumberFormat = "$#,##0;($#,##0);$0"
+        Case "comma": target.NumberFormat = "#,##0;(#,##0);0"
+        Case "percent": target.NumberFormat = "0.0%"
+        Case Else: Err.Raise 5, , "Unknown format preset."
+    End Select
+    Exit Sub
+Failed:
+    Fail Err.Description
+End Sub
+
+Public Sub SF_Notes(Optional control As Variant)
+    ApplyPreset "notes"
+End Sub
+
+Public Sub SF_BlueFont(Optional control As Variant)
+    ApplyPreset "blue"
+End Sub
+
+Public Sub SF_GreenFont(Optional control As Variant)
+    ApplyPreset "green"
+End Sub
+
+Public Sub SF_RedFont(Optional control As Variant)
+    ApplyPreset "red"
+End Sub
+
+Public Sub SF_YellowFill(Optional control As Variant)
+    ApplyPreset "yellow"
+End Sub
+
+Public Sub SF_Currency(Optional control As Variant)
+    ApplyPreset "currency"
+End Sub
+
+Public Sub SF_Comma(Optional control As Variant)
+    ApplyPreset "comma"
+End Sub
+
+Public Sub SF_Percent(Optional control As Variant)
+    ApplyPreset "percent"
 End Sub
 
 Public Sub SF_Assumption(Optional control As Variant)
@@ -270,7 +328,7 @@ Private Function ResizeOneSheet(ByVal sheet As Worksheet) As String
         ' Leave about 10% breathing room on the right when the zoom floor permits.
         zoom = Int(CDbl(ActiveWindow.Zoom) * 0.9)
         If zoom < 70 Then zoom = 70
-        If zoom > 150 Then zoom = 150
+        If zoom > 120 Then zoom = 120
         ActiveWindow.Zoom = zoom
     End If
     Application.Goto sheet.Range("A1"), True
@@ -434,17 +492,20 @@ RestoreState:
 End Sub
 
 Public Sub SF_Help(Optional control As Variant)
-    MsgBox "SheetFreak 2.1.0" & vbCrLf & vbCrLf & _
+    MsgBox "SheetFreak 2.2.0" & vbCrLf & vbCrLf & _
         "Press Alt, S to open SheetFreak, then:" & vbCrLf & _
         "0  Zero decimals (preserves number style)" & vbCrLf & _
         "A  Assumption format" & vbCrLf & _
         "H  Header format" & vbCrLf & _
+        "N  Notes (gray italics); Y  Yellow highlight only" & vbCrLf & _
+        "B / G / R  Blue / green / red font only" & vbCrLf & _
+        "4 / K / P  Currency / comma (0 decimals) / percent (1 decimal)" & vbCrLf & _
         "C / V  Copy / paste exact formulas" & vbCrLf & _
         "F  Fill and freeze (confirmation required)" & vbCrLf & _
-        "R  Auto resize current sheet" & vbCrLf & _
-        "W  Auto resize all visible worksheets" & vbCrLf & _
+        "WC  Auto resize current sheet" & vbCrLf & _
+        "WA  Auto resize all visible worksheets" & vbCrLf & _
         "S  Share Excel: snapshot to drag from Explorer into a chat" & vbCrLf & vbCrLf & _
-        "Resize: A1, right margin, 70-150% zoom, gridlines off." & vbCrLf & _
+        "Resize: A1, right margin, 70-120% zoom, gridlines off." & vbCrLf & _
         "Fill and freeze: select one row of formulas, then choose a last-row column." & vbCrLf & _
         "No recovery workbook is created. Save your work before fill and freeze." & vbCrLf & _
         "No Ctrl+Alt shortcuts are registered. Excel may reassign ribbon key tips." & vbCrLf & _

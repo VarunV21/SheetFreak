@@ -2,6 +2,8 @@
 
 ## Current status
 
+Version 2.2.0 is a format/zoom test candidate. It passed 20 preset, 12 zoom and 16 workbook-view checks against the compiled add-in, plus ribbon Currency 4 and WC/WA dispatch checks. Do not merge it before user acceptance. Import PresetTests.bas into a disposable test host and run `PresetTests.RunPresetChecks` with an explicit report path. The release gate now requires preset-test-results.txt in addition to the other four reports.
+
 The 2.1.0 Share Excel source awaits native compilation and testing. Earlier 2.0.0 reports do not validate this candidate. Import both production modules, including `src/SheetFreakShare.bas`. Do not relabel an older binary as 2.1.0.
 
 Version 2.0.0 was compiled from this source and passed 45 engine, 12 zoom and 16 workbook-view native Excel checks. Ribbon Fill and Freeze, cancel behavior, colors, Alt S, and persistent loading after restart were also checked. The installer upgrade required the checkbox step documented in INSTALL.md. These checks do not establish compatibility with every Office configuration. Offline checks do not establish that Excel has compiled, loaded or tested the new VBA. The existing local 0.2.1 binary must not be relabeled or packaged as 2.0.0.

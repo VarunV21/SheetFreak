@@ -59,7 +59,7 @@ Public Sub RunAll()
     Check sheet.Range("H6").Formula2 = "=A1+$A$2", "single-cell exact copy"
     sheet.Range("Z100").Select: SF_Home
     Check Selection.Address = "$A$1", "home selects A1"
-    Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 150, "home readable zoom bounds"
+    Check ActiveWindow.Zoom >= 70 And ActiveWindow.Zoom <= 120, "home readable zoom bounds"
     Check Not ActiveWindow.DisplayGridlines, "home hides gridlines"
     sheet.Range("A1:Z100").Clear
     sheet.Range("A1").Value2 = "Key"
