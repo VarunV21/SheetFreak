@@ -4,9 +4,7 @@ An Excel toolbox for people who are freaks in the sheets. Install once; use its 
 
 **[Download releases](https://github.com/VarunV21/SheetFreak/releases)** · **[Installation guide](INSTALL.md)** · [My website](https://varun-verma-portfolio.vercel.app/projects/sheetfreak/)
 
-This repository is the canonical source. Version **2.0.0** was compiled and tested in Windows desktop Excel, including 73 native checks, ribbon Fill and Freeze, and loading after a full restart. Download the built release asset for installation.
-
-**Current source: 2.2.0**, approved after local Excel testing. The published installation download remains 2.0.0; it does not yet include Share Excel or the new formatting presets. A new release ZIP still requires the complete release validation described in [BUILD.md](BUILD.md).
+This repository is the canonical source. **Version 2.2.0** is the current release, compiled and tested in Windows desktop Excel. It passed 115 native checks and seven offline checks; automatic loading after a fresh Excel startup was verified. Download the built release ZIP for installation.
 
 ## Version 2.2 features
 
@@ -31,7 +29,7 @@ All keys below follow Alt, S:
 
 ## Install
 
-1. Under **Releases → Assets**, download `SheetFreak-v2.0.0.zip`. Do not choose GitHub's **Source code (zip)**.
+1. Under **Releases → Assets**, download `SheetFreak-v2.2.0.zip`. Do not choose GitHub's **Source code (zip)**.
 2. Extract the ZIP into a permanent folder.
 3. In Excel: **File → Options → Add-ins → Manage: Excel Add-ins → Go → Browse**. Select `SheetFreak.xlam`, ensure **Sheetfreak is checked**, then click **OK**.
 4. Fully close and reopen Excel. Confirm the SheetFreak tab appears in a blank workbook.
