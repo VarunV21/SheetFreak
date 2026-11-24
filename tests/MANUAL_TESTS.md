@@ -4,7 +4,7 @@ Use a disposable `.xlsx` workbook. Save it before testing.
 
 - Install the add-in, restart Excel, and confirm the SheetFreak tab and ribbon key tips are available in a normal `.xlsx`.
 - Test currency, accounting, comma and percent formats together, plus dates; zero decimals should preserve the numeric style and underlying values.
-- Format several assumptions and a multirow header. Check the blue/yellow colors and every header border.
+- Format several assumptions and a multirow header. Check the blue/yellow colors, dark H and light J headers, and absence of header borders.
 - Copy a rectangular range containing relative, absolute and mixed references, constants, blanks and text beginning with `=`. Paste to a new location and compare formula text. Try another worksheet and workbook too.
 - Confirm overwriting content with Paste exact offers a cancel path.
 - Run Auto resize on compact, wide and blank sheets. Confirm A1, 70–120% zoom (blank 100%), gridlines off and a right margin when the 70% minimum permits. Repeat with gridlines already off.
@@ -37,3 +37,5 @@ Report: Excel version, command used, selected range, expected outcome and actual
 - Test positive, negative, zero and text values, nonadjacent cells, protected/read-only sheets, and conditional formatting (which can override visible colors).
 - Verify WC and WA are available alongside red R and copy C. Both resize commands cap at 120%, retain the existing 70% floor, right margin and gridlines-off behavior.
 - User acceptance required before merging to main.
+
+- Verify Currency 0 dp has a dollar icon aligned with comma and percent. Check H removes old white borders and J applies light gray fill with bold black text, also without borders.

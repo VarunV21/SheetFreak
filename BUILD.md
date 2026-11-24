@@ -2,7 +2,7 @@
 
 ## Current status
 
-Version 2.2.0 is a format/zoom test candidate. It passed 20 preset, 12 zoom and 16 workbook-view checks against the compiled add-in, plus ribbon Currency 4 and WC/WA dispatch checks. Do not merge it before user acceptance. Import PresetTests.bas into a disposable test host and run `PresetTests.RunPresetChecks` with an explicit report path. The release gate now requires preset-test-results.txt in addition to the other four reports.
+Version 2.2.0 is a format/zoom test candidate. It passed 28 preset, 12 zoom and 16 workbook-view checks against the compiled add-in, plus ribbon Currency 4 and WC/WA dispatch checks. Do not merge it before user acceptance. Import PresetTests.bas into a disposable test host and run `PresetTests.RunPresetChecks` with an explicit report path. The release gate now requires preset-test-results.txt in addition to the other four reports.
 
 The 2.1.0 Share Excel source awaits native compilation and testing. Earlier 2.0.0 reports do not validate this candidate. Import both production modules, including `src/SheetFreakShare.bas`. Do not relabel an older binary as 2.1.0.
 

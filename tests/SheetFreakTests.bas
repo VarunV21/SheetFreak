@@ -43,8 +43,8 @@ Public Sub RunAll()
     sheet.Range("B1:C2").Select: SF_Header
     Check sheet.Range("B1").Interior.Color = RGB(64, 64, 64), "header gray"
     Check sheet.Range("B1").Font.Color = vbWhite And sheet.Range("B1").Font.Bold, "header font"
-    Check sheet.Range("B1:C2").Borders(xlInsideVertical).Color = vbWhite, "white inside vertical borders"
-    Check sheet.Range("B1:C2").Borders(xlInsideHorizontal).Color = vbWhite, "white inside horizontal borders"
+    Check sheet.Range("B1:C2").Borders(xlInsideVertical).LineStyle = xlNone, "no inside vertical borders"
+    Check sheet.Range("B1:C2").Borders(xlInsideHorizontal).LineStyle = xlNone, "no inside horizontal borders"
     sheet.Range("D1").Select: SF_Assumption
     Check sheet.Range("D1").Font.Color = RGB(0, 0, 255), "assumption blue"
     Check sheet.Range("D1").Interior.Color = RGB(255, 242, 204), "assumption yellow"

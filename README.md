@@ -10,7 +10,7 @@ This repository is the canonical source. Version **2.0.0** was compiled and test
 
 ## 2.2 test branch
 
-This branch adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 48 native preset/resize checks and seven offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally for user acceptance and must not be merged to main before acceptance. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
+This branch adds gray italic Notes, font-only blue/green/red, pale yellow fill-only, currency and comma presets with zero decimals, percentages with one decimal, and a 120% resize cap. The candidate passed 56 native preset/resize checks and seven offline checks. Currency 4 and resize WC/WA were checked through the ribbon. It is installed locally for user acceptance and must not be merged to main before acceptance. Currency uses dollars immediately beside the number, parentheses for negatives and $0 for zero. Formatting does not change stored values; color-only presets preserve other styles. Conditional formatting can still override the visible colors.
 
 All keys below follow Alt, S:
 
@@ -18,7 +18,7 @@ All keys below follow Alt, S:
 | --- | --- |
 | Zero decimals | 0 |
 | Assumption | A |
-| Header | H |
+| Dark / light header | H / J |
 | Notes | N |
 | Blue / green / red font only | B / G / R |
 | Yellow highlight only | Y |
@@ -46,7 +46,7 @@ Press ribbon keys one after another, starting with Alt. SheetFreak uses ribbon k
 | --- | --- | --- |
 | Zero decimals | 0 | Hide decimal places while preserving supported number styles and stored precision. |
 | Assumption | A | Blue text and pale yellow fill for editable model inputs. |
-| Header | H | Dark gray fill, bold white text, white borders around every cell. |
+| Dark / light header | H / J | Dark gray fill, bold white text, no borders. |
 | Copy exact | C | Copy formulas into a private session buffer. |
 | Paste exact | V | Paste formulas without shifting references. Does not copy formatting. |
 | Fill and freeze | F | Choose a last-row column, confirm, fill/calculate formulas, then freeze lower rows as black-text values. Seed formulas remain purple; affected columns AutoFit. |
@@ -75,3 +75,5 @@ Each invocation creates a separate copy under `%TEMP%\SheetFreak\Share`. Copies 
 - [BUILD.md](BUILD.md): build, test and release instructions. Editing `.bas` files alone does not update the installed binary.
 
 MIT. See [LICENSE](LICENSE).
+
+The 2.2 test branch includes borderless dark headers (H) and light gray headers with bold black text (J). Both styles remove existing cell borders. Currency 0 dp uses the built-in dollar icon; its number format remains currency.

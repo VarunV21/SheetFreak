@@ -47,6 +47,19 @@ Public Sub RunPresetChecks(ByVal reportPath As String)
     Application.Run "'SheetFreak.xlam'!SF_GreenFont"
     Check sheet.Range("C1").Font.Color = RGB(0, 128, 0) And sheet.Range("E1").Font.Color = RGB(0, 128, 0), "font preset supports nonadjacent cells", log
     Check sheet.Range("D1").Font.Color <> RGB(0, 128, 0), "nonselected cell unchanged", log
+    Set target = sheet.Range("G1:H2"): target.Value2 = "Header"
+    target.Borders.LineStyle = xlContinuous: target.Borders.Color = vbWhite
+    target.Select: Application.Run "'SheetFreak.xlam'!SF_Header"
+    Check target.Interior.Color = RGB(64, 64, 64) And target.Font.Color = vbWhite And target.Font.Bold, "dark header colors and bold", log
+    Check target.Borders(xlInsideVertical).LineStyle = xlNone And target.Borders(xlInsideHorizontal).LineStyle = xlNone, "dark header removes inside borders", log
+    Check target.Borders(xlEdgeTop).LineStyle = xlNone And target.Borders(xlEdgeBottom).LineStyle = xlNone, "dark header removes top and bottom borders", log
+    Check target.Borders(xlEdgeLeft).LineStyle = xlNone And target.Borders(xlEdgeRight).LineStyle = xlNone, "dark header removes left and right borders", log
+    target.Borders.LineStyle = xlContinuous: target.Borders.Color = vbWhite
+    Application.Run "'SheetFreak.xlam'!SF_LightHeader"
+    Check target.Interior.Color = RGB(217, 217, 217) And target.Font.Color = vbBlack And target.Font.Bold, "light header colors and bold", log
+    Check target.Borders(xlInsideVertical).LineStyle = xlNone And target.Borders(xlInsideHorizontal).LineStyle = xlNone, "light header removes inside borders", log
+    Check target.Borders(xlEdgeTop).LineStyle = xlNone And target.Borders(xlEdgeBottom).LineStyle = xlNone, "light header removes top and bottom borders", log
+    Check target.Borders(xlEdgeLeft).LineStyle = xlNone And target.Borders(xlEdgeRight).LineStyle = xlNone And target.Cells(1, 1).Value2 = "Header", "light header removes side borders and preserves text", log
     log = log & "ALL PRESET CHECKS PASSED" & vbCrLf
     GoTo Cleanup
 Failed:

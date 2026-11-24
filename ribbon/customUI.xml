@@ -4,7 +4,8 @@
     <group id="sfFormats" label="Format">
       <button id="sfZero" label="Zero decimals" size="normal" keytip="0" imageMso="DecimalsDecrease" onAction="SF_ZeroDecimals" screentip="Zero decimal places" supertip="Keep currency, accounting, commas and percentages. Dates, times and fractions stay unchanged. Values retain full precision."/>
       <button id="sfAssumption" label="Assumption" size="normal" keytip="A" imageMso="FontColorPicker" onAction="SF_Assumption" screentip="Assumption format" supertip="Blue text and pale yellow fill for editable model assumptions."/>
-      <button id="sfHeader" label="Header" size="normal" keytip="H" imageMso="BordersAll" onAction="SF_Header" screentip="Header format" supertip="Dark gray fill, bold white text and thin white borders around each cell."/>
+      <button id="sfHeader" label="Header" size="normal" keytip="H" imageMso="BordersAll" onAction="SF_Header" screentip="Header format" supertip="Dark gray fill and bold white text. Clears existing borders."/>
+      <button id="sfLightHeader" label="Light header" keytip="J" imageMso="BordersAll" onAction="SF_LightHeader" supertip="Light gray fill and bold black text. Clears existing borders."/>
       <button id="sfNotes" label="Notes" keytip="N" imageMso="Italic" onAction="SF_Notes" supertip="Apply gray italic text. Other formatting and contents stay unchanged."/>
       <button id="sfYellow" label="Yellow highlight" keytip="Y" imageMso="TextHighlightColorPicker" onAction="SF_YellowFill" supertip="Pale yellow fill only, matching Assumption. Keeps the existing font color."/>
     </group>
@@ -14,7 +15,7 @@
         <button id="sfRed" label="Red font" keytip="R" onAction="SF_RedFont" supertip="Red font only, for placeholders."/>
     </group>
     <group id="sfNumbers" label="Numbers">
-      <button id="sfCurrency" label="Currency 0 dp" keytip="4" imageMso="CurrencyFormat" onAction="SF_Currency" supertip="Dollar currency, no decimals, parentheses for negatives and $0 for zero. Stored values stay unchanged."/>
+      <button id="sfCurrency" label="Currency 0 dp" keytip="4" imageMso="AccountingFormat" onAction="SF_Currency" supertip="Dollar currency, no decimals, parentheses for negatives and $0 for zero. Stored values stay unchanged."/>
       <button id="sfComma" label="Comma 0 dp" keytip="K" imageMso="CommaStyle" onAction="SF_Comma" supertip="Thousands separators, no decimals, parentheses for negatives. Stored values stay unchanged."/>
       <button id="sfPercent" label="Percent 1 dp" keytip="P" imageMso="PercentStyle" onAction="SF_Percent" supertip="Percentage with one decimal place. Stored values stay unchanged."/>
     </group>

@@ -112,25 +112,30 @@ Failed:
 End Sub
 
 Public Sub SF_Header(Optional control As Variant)
-    Dim target As Range, area As Range, edge As Variant
+    ApplyHeader False
+End Sub
+
+Public Sub SF_LightHeader(Optional control As Variant)
+    ApplyHeader True
+End Sub
+
+Private Sub ApplyHeader(ByVal light As Boolean)
+    Dim target As Range
     On Error GoTo Failed
     Set target = SelectedCells(): Writable target: SmallSelection target, MAX_FORMAT_CELLS
     NoMerged target
     With target
-        .Font.Color = vbWhite
         .Font.Bold = True
         .Interior.Pattern = xlSolid
-        .Interior.Color = RGB(64, 64, 64)
+        .Borders.LineStyle = xlNone
+        If light Then
+            .Font.Color = vbBlack
+            .Interior.Color = RGB(217, 217, 217)
+        Else
+            .Font.Color = vbWhite
+            .Interior.Color = RGB(64, 64, 64)
+        End If
     End With
-    For Each area In target.Areas
-        For Each edge In Array(xlEdgeLeft, xlEdgeTop, xlEdgeBottom, xlEdgeRight, xlInsideVertical, xlInsideHorizontal)
-            With area.Borders(CLng(edge))
-                .LineStyle = xlContinuous
-                .Weight = xlThin
-                .Color = vbWhite
-            End With
-        Next edge
-    Next area
     Exit Sub
 Failed:
     Fail Err.Description
@@ -496,7 +501,7 @@ Public Sub SF_Help(Optional control As Variant)
         "Press Alt, S to open SheetFreak, then:" & vbCrLf & _
         "0  Zero decimals (preserves number style)" & vbCrLf & _
         "A  Assumption format" & vbCrLf & _
-        "H  Header format" & vbCrLf & _
+        "H / J  Dark / light header (no borders)" & vbCrLf & _
         "N  Notes (gray italics); Y  Yellow highlight only" & vbCrLf & _
         "B / G / R  Blue / green / red font only" & vbCrLf & _
         "4 / K / P  Currency / comma (0 decimals) / percent (1 decimal)" & vbCrLf & _
